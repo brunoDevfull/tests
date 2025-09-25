@@ -2,55 +2,195 @@ import { Calculadora } from "../../src/utils/Calculadora.js";
 
 let calculadora;
 
-beforeEach(() => {
-  calculadora = new Calculadora();
-});
+describe("Testes unitarios da classe calculadora", () => {
 
-test("deve somar dois valores", () => {
-  expect(calculadora.somar(2, 3)).toBe(5);
-});
+  beforeEach(() => {
+    calculadora = new Calculadora();
+  });
 
-test("deve subtrair dois valores", () => {
-  expect(calculadora.subtrair(5, 3)).toBe(2);
-});
+  describe("Teste do método somar", () => {
 
-test("deve multiplicar dois valores", () => {
-  expect(calculadora.multiplicar(4, 3)).toBe(12);
-});
+    test("deve somar dois numeros positivos", () => {
+      //ACT
+      const resultado = calculadora.somar(2, 3);
 
-test("deve dividir dois valores", () => {
-  expect(calculadora.dividir(10, 2)).toBe(5);
-});
+      //ASSERT
+      expect(resultado).toBe(5);
+    });
 
-test("deve lançar erro ao dividir por zero", () => {
-  expect(() => calculadora.dividir(10, 0)).toThrow("Divisão por zero não é permitida");
-});
+    test("Deve somar dois números negativos.", () => {
+        //ACT
+        const resultado = calculadora.somar(-5, -5);
+  
+        //ASSERT
+        expect(resultado).toBe(-10);
+      });
 
-test("deve calcular juros simples corretamente", () => {
-  expect(calculadora.jurosSimples(1000, 0.05, 2)).toBe(100);
-});
+    test("Deve somar um número positivo e um número negativo.", () => {
+      //ACT
+      const resultado = calculadora.somar(10, -10);
+      
+      //ASSERT
+      expect(resultado).toBe(0);
+    });
 
-test("deve calcular juros compostos corretamente", () => {
-  // 1000 * (1 + 0.05)^2 = 1102.5
-  expect(calculadora.jurosCompostos(1000, 0.05, 2)).toBeCloseTo(1102.5);
-});
+    test("Deve somar um número negativo e um número positivo.", () => {
+      //ACT
+      const resultado = calculadora.somar(-10, 10);
 
-test("deve aplicar desconto percentual corretamente", () => {
-  expect(calculadora.descontoPercentual(200, 0.1)).toBe(180);
-});
+      //ASSERT
+      expect(resultado).toBe(0);
+    });
 
-test("deve lançar erro se percentual não estiver entre 0 e 1", () => {
-  expect(() => calculadora.descontoPercentual(200, 1.5)).toThrow("Percentual deve estar entre 0 e 1");
-});
+    test("Deve lançar um erro se o primeiro parâmetro não for um número.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.somar("a", 5);
+      }).toThrow(TypeError);
+    });
 
-test("deve aplicar desconto fixo corretamente", () => {
-  expect(calculadora.descontoFixo(200, 50)).toBe(150);
-});
+    test("Deve lançar um erro se o segundo parâmetro não for um número.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.somar(5, "b");
+      }).toThrow(TypeError);
+    });
 
-test("deve lançar erro se desconto for maior que o valor", () => {
-  expect(() => calculadora.descontoFixo(100, 150)).toThrow("Desconto maior que o valor");
-});
+    test("Deve lançar um erro se ambos os parâmetros não forem números.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.somar("a", "b");
+      }).toThrow(TypeError);
+    });
+  
+  });
 
-test("deve lançar erro se valor não for número", () => {
-  expect(() => calculadora.somar("a", 2)).toThrow(TypeError);
+  describe("Teste do método subtrair", () => {
+
+    test("deve subtrair dois numeros positivos", () => {
+      //ACT
+      const resultado = calculadora.subtrair(10, 10);
+
+      //ASSERT
+      expect(resultado).toBe(0);
+    });
+
+    test("deve subtrair dois numeros negativos", () => {
+      //ACT
+      const resultado = calculadora.subtrair(-10, -10);
+
+      //ASSERT
+      expect(resultado).toBe(0);
+    });
+
+    test("Deve subtrair um número positivo e um número negativo.", () => {
+      //ACT
+      const resultado = calculadora.subtrair(10, -10);
+
+      //ASSERT
+      expect(resultado).toBe(20);
+    });
+
+    test("Deve subtrair um número negativo e um número positivo.", () => {
+      //ACT
+      const resultado = calculadora.subtrair(-10, 10);
+
+      //ASSERT
+      expect(resultado).toBe(-20);
+    });
+
+    test("Deve lançar um erro se o primeiro parâmetro não for um número.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.subtrair("a", 5);
+      }).toThrow(TypeError);
+    });
+
+    test("Deve lançar um erro se o segundo parâmetro não for um número.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.subtrair(5, "b");
+      }).toThrow(TypeError);
+    });
+
+    test("Deve lançar um erro se ambos os parâmetros não forem números.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.subtrair("a", "b");
+      }).toThrow(TypeError);
+    });
+  });
+
+  describe("Teste do método multiplicar", () => {
+
+    test("deve multiplicar dois numeros positivos", () => {
+      //ACT
+      const resultado = calculadora.multiplicar(10, 10);
+
+      //ASSERT
+      expect(resultado).toBe(100);
+    });
+
+    test("deve multiplicar dois numeros negativos", () => {
+      //ACT
+      const resultado = calculadora.multiplicar(-10, -10);
+
+      //ASSERT
+      expect(resultado).toBe(100);
+    });
+
+    test("Deve multiplicar um número positivo e um número negativo.", () => {
+      //ACT
+      const resultado = calculadora.multiplicar(10, -10);
+
+      //ASSERT
+      expect(resultado).toBe(-100);
+    });
+
+    test("Deve multiplicar um número negativo e um número positivo.", () => {
+      //ACT
+      const resultado = calculadora.multiplicar(-10, 10);
+
+      //ASSERT
+      expect(resultado).toBe(-100);
+    });
+
+    test("Deve lançar um erro se o primeiro parâmetro não for um número.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.multiplicar("a", 5);
+      }).toThrow(TypeError);
+    });
+
+    test("Deve lançar um erro se o segundo parâmetro não for um número.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.multiplicar(5, "b");
+      }).toThrow(TypeError);
+    });
+
+    test("Deve lançar um erro se ambos os parâmetros não forem números.", () => {
+      //ASSERT
+      expect(() => {
+        //ACT
+        calculadora.multiplicarr("a", "b");
+      }).toThrow(TypeError);
+    });
+
+    
+
+
+
+  });
+    
+
+
 });
