@@ -47,7 +47,7 @@ describe("Boletim", () => {
   });
 
   // Testes para o método verificarAprovacao
-  describe("métodoverificarAprovacao", () => {
+  describe("método verificarAprovacao", () => {
     test("deve retornar true se a média for maior que a média mínima", () => {
       boletim.adicionarNota(8);
       boletim.adicionarNota(9);
